@@ -120,6 +120,60 @@ def _parse_explanation(text: str) -> StructuredExplanation:
     return out
 
 
+def _polarity_balance_hint(active_features, activation_values, polarities):
+    """Build a one-paragraph summary of the active features' polarity balance.
+
+    Returns "" if polarities are absent or no clear LOW/HIGH split is present.
+    Used to nudge LLM2 toward honest aggregation when signals conflict.
+    """
+    if polarities is None:
+        return ""
+    low_score, high_score = 0.0, 0.0
+    low_ct, high_ct = 0, 0
+    for f, v in zip(active_features, activation_values):
+        if f not in polarities:
+            continue
+        d = polarities[f].direction
+        if d == "LOW":
+            low_score += v
+            low_ct += 1
+        elif d == "HIGH":
+            high_score += v
+            high_ct += 1
+    if low_ct == 0 and high_ct == 0:
+        return ""
+    if low_ct == 0:
+        return (
+            f"\n\nPOLARITY SUMMARY: All {high_ct} polarized active features push "
+            f"toward HIGH (total weighted activation = {high_score:.2f}). "
+            "Aggregation should clearly support HIGH."
+        )
+    if high_ct == 0:
+        return (
+            f"\n\nPOLARITY SUMMARY: All {low_ct} polarized active features push "
+            f"toward LOW (total weighted activation = {low_score:.2f}). "
+            "Aggregation should clearly support LOW."
+        )
+    total = low_score + high_score
+    minority = min(low_score, high_score) / total
+    if minority < 0.15:
+        winner = "HIGH" if high_score > low_score else "LOW"
+        return (
+            f"\n\nPOLARITY SUMMARY: signals lean strongly {winner} "
+            f"({low_ct} LOW vs {high_ct} HIGH active features; weighted "
+            f"activation = {low_score:.2f} LOW vs {high_score:.2f} HIGH)."
+        )
+    # Genuinely mixed.
+    return (
+        f"\n\nPOLARITY SUMMARY: ⚠️ MIXED SIGNALS — {low_ct} LOW-pushing and "
+        f"{high_ct} HIGH-pushing features are simultaneously active "
+        f"(weighted activation = {low_score:.2f} LOW vs {high_score:.2f} HIGH). "
+        "If you keep S small, you MUST acknowledge this conflict in Aggregation "
+        "(e.g., 'signals are mixed, leaning slightly LOW/HIGH'). "
+        "Do not cherry-pick one side."
+    )
+
+
 def explain_one(
     client: LLMClient,
     *,
@@ -127,6 +181,7 @@ def explain_one(
     activation_values: list[float],
     concept_labels: dict[int, str],
     polarities: dict | None = None,
+    forced_S: list[int] | None = None,
     max_new_tokens: int = 320,
     temperature: float = 0.0,
 ) -> StructuredExplanation:
@@ -142,6 +197,11 @@ def explain_one(
                             provided, each dict entry is annotated with a tag
                             like "[→ HIGH, strong, P(high|active)=0.83]" so
                             LLM2 can reason about direction faithfully.
+        forced_S:           Optional pre-chosen S subset. If provided, LLM2 is
+                            instructed to use exactly these features in S
+                            (still free to write the Mechanisms / Aggregation /
+                            Limits text). Used by ``pipeline.explain_with_selection``
+                            to diversify K candidates by polarity.
     """
     from .feature_polarity import render_polarity_tag
 
@@ -161,6 +221,15 @@ def explain_one(
         _dict_line(i) for i in active_features if i in concept_labels
     )
     user = LLM2_USER_TEMPLATE.format(active_pairs=pair_lines, concept_dict=dict_lines)
+    user += _polarity_balance_hint(active_features, activation_values, polarities)
+    if forced_S is not None and len(forced_S) > 0:
+        forced_str = ", ".join(f"i{i}" for i in forced_S)
+        user += (
+            f"\n\nCONSTRAINT: Set S = {{{forced_str}}} exactly. "
+            "Write Mechanisms only about these features. You may still mention "
+            "other active features inside Limits with the [cite: ...] format."
+        )
+
     text = client.chat(
         [
             {"role": "system", "content": LLM2_SYSTEM},

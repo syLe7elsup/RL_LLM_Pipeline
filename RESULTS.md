@@ -399,3 +399,44 @@ mean mechanism count per winner: 2.0
 verifier accuracy across 17 concepts: mean=0.66, min=0.50, max=0.88
 concepts above alpha=0.7: 8 / 17
 ```
+
+---
+
+## Addendum: cherry-picking fix (polarity-aware K-candidate diversification)
+
+A follow-up change in `pipeline.py` and `llm2_explainer.py` adds two things:
+
+1. A **polarity summary hint** appended to the LLM2 user prompt that flags
+   when the active features include both LOW- and HIGH-pushing concepts.
+2. **Prescribed-S K-candidate strategies** — when polarities are mixed, the
+   K candidates explicitly span `free` / `balanced` / `low_only` / `high_only`
+   instead of just temperature-varied free choice.
+
+Verified on the snapshot via `scripts/test_polarity_diversification.py`:
+
+```
+input #0 (val idx 163)
+  blackbox P(low, high) = (0.999, 0.001)
+  active LOW : [0, 1, 2, 4, 13, 15, 26]   active HIGH: []   (single polarity)
+  All 4 candidates use 'free' strategy (auto-detected single polarity).
+  KL = 0.101, Judge = (0.90, 0.10).   Same as before — no regression.
+
+input #1 (val idx 1869)
+  blackbox P(low, high) = (0.474, 0.526)
+  active LOW : [0, 4, 13, 15]   active HIGH: [5, 22, 24]   (MIXED)
+  [     free] cand 0: KL=0.067   Judge=(0.30,0.70)
+  [ balanced] cand 1: KL=0.011   Judge=(0.40,0.60)   <-- WIN
+  [ low_only] cand 2: KL=0.110   Judge=(0.70,0.30)
+  [high_only] cand 3: KL=1.497   Judge=(0.01,0.99)
+```
+
+| metric | before fix | after fix |
+| --- | ---:| ---:|
+| input #1 winning KL | 0.756 | **0.011** |
+| input #1 Judge probs | (0.05, 0.95) | (0.40, 0.60) |
+| mean winning KL across both inputs | 0.428 | **0.056** |
+
+The winning balanced explanation now openly says
+"signals are mixed, leaning slightly LOW/HIGH" instead of cherry-picking
+one polarity. The blackbox's near-50/50 uncertainty is faithfully transmitted
+through to the Judge.
