@@ -62,14 +62,28 @@ and `a_k ∈ {0,1}`. Reward is computed only at stage 3 from `s_3` and `s_4`.
 
 ## Quick start
 
+### Local
+
 ```bash
 pip install -r requirements.txt
 jupyter notebook run_pipeline.ipynb
 ```
 
-The notebook defaults to `StubClient` (no GPU, instant). Switch the LLM
-client cell to `QwenLocalClient(model_id='Qwen/Qwen2.5-3B-Instruct')` for
-a real run (~20 min on Apple Silicon MPS).
+The notebook auto-picks `Qwen2.5-3B-Instruct` if you have a GPU (CUDA or
+Apple MPS). To dry-run the plumbing without an LLM, replace the
+`QwenLocalClient(...)` line in cell 14 with `client = StubClient()`.
+
+### Google Colab
+
+1. Open Colab → File → Upload `run_pipeline.ipynb`
+2. Runtime → Change runtime type → T4 GPU (free) or higher
+3. Run all
+
+The first cell auto-detects Colab, installs deps, clones this repo, and
+`cd`s into it. Subsequent cells then run unchanged — and on a Colab T4
+the model auto-upgrades to `Qwen2.5-7B-Instruct` (~14GB fp16). Snapshots
+land in your Google Drive at `MyDrive/bb_pipeline_snapshots/run_001/`
+so they survive runtime disconnects.
 
 ## Status
 
