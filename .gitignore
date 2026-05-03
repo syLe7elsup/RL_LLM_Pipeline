@@ -1,0 +1,23 @@
+# python
+__pycache__/
+*.pyc
+*.pyo
+.python-version
+
+# notebooks
+.ipynb_checkpoints/
+
+# pipeline state snapshots (large weights, regeneratable)
+snapshot/
+
+# OS
+.DS_Store
+
+# editors
+.vscode/
+.idea/
+
+# huggingface cache (if any local copies leak in)
+hf_cache/
+*.safetensors
+*.bin
