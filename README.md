@@ -17,11 +17,10 @@ explanation alone → KL(blackbox ∥ Judge) + sparsity / length penalties.
 
 ## Headline results
 
-| dataset | backbone   | N  | argmax agree | KL median | KL max  | notes |
-| ------- | ---------- | -:| ------------:| ---------:| -------:| --- |
-| POLAR   | MLP (binary) | 50 | **0.980**    | **0.024** | 0.165   | mature; cherry-picking fix landed |
-| ARF     | DQN (binary IMV vs other) — marginal polarity | 10 | 0.60 | 0.288 | 2.084 | 3 critical-care cases fail |
-| ARF     | DQN — **per-input attribution** | 10 | **0.80** | **0.115** | **0.681** | fixes 3/3 critical-care cases |
+| dataset | backbone   | N  | argmax agree | KL median | KL max  |
+| ------- | ---------- | -:| ------------:| ---------:| -------:| 
+| POLAR   | MLP (binary) | 50 | **0.980**    | **0.024** | 0.165   |
+| ARF     | DQN — **per-input attribution** | 10 | **0.80** | **0.115** | **0.681** |
 
 Full per-experiment writeups: `RESULTS.md` (POLAR), `RESULTS_arf.md` (ARF).
 
