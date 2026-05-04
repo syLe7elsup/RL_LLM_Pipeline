@@ -440,3 +440,64 @@ The winning balanced explanation now openly says
 "signals are mixed, leaning slightly LOW/HIGH" instead of cherry-picking
 one polarity. The blackbox's near-50/50 uncertainty is faithfully transmitted
 through to the Judge.
+
+---
+
+## Addendum: N=50 evaluation
+
+Ran the explanation pipeline on N=50 randomly-sampled validation patients
+via `scripts/eval_n100.py` (snapshot-based — skips the LLM1 phase).
+Originally targeted N=100 but the system slowed down significantly
+mid-run (likely due to MPS thermal throttling / memory pressure over
+many hours of inference); we kept the partial-save snapshot of the first
+50, which is statistically meaningful.
+
+### Headline numbers
+
+| metric                                 | value |
+| -------------------------------------- | ---:|
+| **argmax agreement rate** (Judge == blackbox) | **49 / 50 = 0.980** |
+| KL  mean                               | 0.039 |
+| KL  median                             | **0.024** |
+| KL  p25 / p75                          | 0.002 / 0.070 |
+| KL  p95 / p99                          | 0.122 / 0.155 |
+| KL  max                                | 0.165 |
+
+### By polarity composition
+
+| group              | n | argmax agree | KL mean | KL median |
+| ------------------ | -:| -----------:| -------:| ---------:|
+| single polarity    | 26 | 26/26 = 1.000 | 0.048 | 0.043 |
+| mixed polarity     | 24 | 23/24 = 0.958 | **0.030** | **0.007** |
+
+The mixed-polarity cases — which were the cherry-picking failure mode
+before the polarity-aware K-candidate strategies — now have lower KL than
+single-polarity cases. The "balanced" candidate wins in 22% of all
+inputs and is essential for these mixed cases.
+
+### Winning strategy distribution
+
+```
+free       32   (single-polarity inputs always pick "free")
+balanced   11   (the new prescribed-S candidate, decisive on mixed inputs)
+low_only    6
+high_only   1
+```
+
+### The 5 worst cases (highest KL)
+
+```
+vidx   KL    blackbox       judge          argmax_agree  strategy   mixed
+247    0.165 (0.02, 0.98)   (0.20, 0.80)   ✓             balanced    yes
+142    0.144 (0.22, 0.78)   (0.06, 0.94)   ✓             balanced    yes
+168    0.135 (0.03, 0.97)   (0.20, 0.80)   ✓             low_only    yes
+1521   0.105 (1.00, 0.00)   (0.90, 0.10)   ✓             free        no
+932    0.104 (1.00, 0.00)   (0.90, 0.10)   ✓             free        no
+```
+
+All 5 worst cases still get the argmax right. The pattern is "Judge is
+slightly less extreme than blackbox" — it caps probabilities around
+0.90/0.10 instead of going all the way to 0.99/0.01. This is the LLM
+being calibration-cautious, not a pipeline failure.
+
+Full per-input results: `scripts/eval_n50_results.json`.
