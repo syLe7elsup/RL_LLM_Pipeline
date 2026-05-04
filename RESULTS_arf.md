@@ -179,3 +179,90 @@ LOW; sign-counting overruled the magnitude evidence).
    POLAR-quality bar on ARF data.
 
 Per-input results: `arf_snapshot/run_001/explanations_n10_attribution.json`.
+
+---
+
+## Stage 10: ground SAE features against the simulator's true latent concepts
+
+The ARF simulator generates each timestep's observed variables from 6
+latent concepts (`oxygenation_failure`, `ventilatory_failure`,
+`metabolic_stress`, `hemodynamic_instability`, `inflammation_severity`,
+`recovery_trend`). The DQN never sees these latents; the SAE never sees
+them either. **If the SAE recovered useful structure, its sparse latents
+should correlate with the ground-truth concepts.** This is the test that
+POLAR cannot run.
+
+`concept_grounding.py` aligns SAE latents (train + val, N=3392) to the
+ground-truth concepts by `(patient_id, time_step)` and computes
+|Pearson r| between every alive feature and every concept.
+
+### Headline numbers
+
+| metric                                                     | value |
+| ---------------------------------------------------------- | ---:|
+| alive SAE features                                         | 103 |
+| features with \|r\| ≥ 0.50 to some ground-truth concept     | **69 / 103 = 0.67** |
+| features with \|r\| ≥ 0.30                                  | 84 / 103 = 0.82 |
+| mean best-match \|r\| across alive features                 | **0.569** |
+
+### Best SAE feature per ground-truth concept
+
+| ground-truth concept       | best SAE feat | \|r\| | LLM1 name |
+| -------------------------- | -:| ----:| --- |
+| oxygenation_failure        | i121 | **0.842** | `"HR & PaO2 negative"` |
+| metabolic_stress           | i62  | **0.801** | (unnamed — too sparse for evidence collection) |
+| recovery_trend             | i62  | **0.797** | (unnamed) |
+| ventilatory_failure        | i17  | **0.786** | `"shock_index_high_and_PaCO2_high"` |
+| hemodynamic_instability    | i62  | 0.779 | (unnamed) |
+| inflammation_severity      | i44  | 0.701 | (unnamed) |
+
+Three of the six concepts share the same best SAE feature (i62) — a
+"general severity" axis the SAE seems to have isolated. The named
+features that LLM1 produced for the top oxygenation / ventilation
+matches are **clinically correct** even though LLM1 never saw the
+ground-truth concept names.
+
+### LLM1 names that ground correctly to clinical concepts
+
+| feat | LLM1 name | grounds to | \|r\| |
+| -:| --- | --- | ----:|
+| 76  | "High SpO2_FiO2_ratio"      | oxygenation_failure | 0.694 |
+| 4   | "PaO2 & PaCO2 negative"     | oxygenation_failure | 0.725 |
+| 28  | "HR & PaO2 negative"        | oxygenation_failure | 0.515 |
+| 17  | "shock_index_high_and_PaCO2_high" | ventilatory_failure | 0.786 |
+| 84  | "shock_index & PaCO2 > 0"   | ventilatory_failure | 0.407 |
+
+LLM1 was given only the SAE evidence sets (no labels, no concept hints).
+Its naming converges on clinically real syndromes that match the
+simulator's hidden latents.
+
+### Concept coverage (uneven)
+
+How many alive features point to each ground-truth concept as their best match:
+
+```
+oxygenation_failure        67 features    ← over-represented (DQN spends most capacity here)
+ventilatory_failure        17
+inflammation_severity      14
+hemodynamic_instability     2
+metabolic_stress            2
+recovery_trend              1
+```
+
+The DQN's IMV decision is dominated by oxygenation, so the SAE devotes
+most of its 128 latent slots to oxygenation-related directions.
+`recovery_trend` is barely captured — it's the simulator's slowest /
+smoothest concept and the DQN apparently doesn't need it for action
+selection.
+
+### Takeaway
+
+The pipeline doesn't just produce coherent-sounding labels; the
+underlying SAE features are *empirically aligned* with the simulator's
+true generative concepts, and our LLM1 (Qwen 3B) names them with
+clinically appropriate language. This is the most direct evidence so
+far that the explanation pipeline is doing real work, not reading tea
+leaves.
+
+Full per-feature grounding: `arf_snapshot/run_001/grounding.json`.
+Run with `python3 scripts/run_arf_grounding.py`.

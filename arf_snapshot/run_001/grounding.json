@@ -1,0 +1,553 @@
+{
+  "split": "both",
+  "n_aligned_rows": 3392,
+  "feature_best_match": {
+    "0": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.6271521865009623,
+      "llm1_label": "High salient indicators"
+    },
+    "2": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7678428974466648,
+      "llm1_label": "\"Low baseline indicators\""
+    },
+    "4": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7246993936967331,
+      "llm1_label": "PaO2 & PaCO2 negative"
+    },
+    "5": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7379946494239482,
+      "llm1_label": null
+    },
+    "7": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.6662882719597492,
+      "llm1_label": "MIXED METABOLIC & RESPIRATORY DYSFUNCTION"
+    },
+    "8": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7075437885218332,
+      "llm1_label": null
+    },
+    "10": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7687014491820723,
+      "llm1_label": "\"Delta_HIGH or |delta|_LOW\""
+    },
+    "11": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.5011149119814798,
+      "llm1_label": "\"High Positive Deltas\""
+    },
+    "12": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.6645318805488271,
+      "llm1_label": "\"MAP > 0 or PaO2 > 0\""
+    },
+    "13": {
+      "concept": "inflammation_severity",
+      "abs_correlation": 0.39851360751824577,
+      "llm1_label": null
+    },
+    "15": {
+      "concept": "inflammation_severity",
+      "abs_correlation": 0.30165389860106473,
+      "llm1_label": null
+    },
+    "16": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.77550943972376,
+      "llm1_label": null
+    },
+    "17": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.7860601903605916,
+      "llm1_label": "shock_index_high_and_PaCO2_high"
+    },
+    "18": {
+      "concept": "inflammation_severity",
+      "abs_correlation": 0.49794872229151194,
+      "llm1_label": null
+    },
+    "19": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.777799316278367,
+      "llm1_label": null
+    },
+    "20": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7784009030214428,
+      "llm1_label": "\"HR & PaO2 < 0\""
+    },
+    "21": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.12809726219180692,
+      "llm1_label": null
+    },
+    "22": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7992121373695401,
+      "llm1_label": null
+    },
+    "23": {
+      "concept": "inflammation_severity",
+      "abs_correlation": 0.2238574547933685,
+      "llm1_label": null
+    },
+    "24": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.5275849262212107,
+      "llm1_label": "High salient indicators"
+    },
+    "26": {
+      "concept": "hemodynamic_instability",
+      "abs_correlation": 0.4576713807146769,
+      "llm1_label": null
+    },
+    "27": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.17678068289702384,
+      "llm1_label": null
+    },
+    "28": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.5154964920628863,
+      "llm1_label": "\"HR & PaO2 negative\""
+    },
+    "29": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.03554510725198698,
+      "llm1_label": null
+    },
+    "30": {
+      "concept": "inflammation_severity",
+      "abs_correlation": 0.34548181649483406,
+      "llm1_label": null
+    },
+    "31": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.0900500782262237,
+      "llm1_label": null
+    },
+    "32": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.6615736986190188,
+      "llm1_label": null
+    },
+    "33": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7237404433941579,
+      "llm1_label": null
+    },
+    "36": {
+      "concept": "inflammation_severity",
+      "abs_correlation": 0.38008709640770066,
+      "llm1_label": null
+    },
+    "38": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.6700035520778167,
+      "llm1_label": null
+    },
+    "39": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7198927461514223,
+      "llm1_label": null
+    },
+    "40": {
+      "concept": "inflammation_severity",
+      "abs_correlation": 0.19035800926009544,
+      "llm1_label": null
+    },
+    "42": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7913107534758758,
+      "llm1_label": "PaO2 & HR negative"
+    },
+    "43": {
+      "concept": "inflammation_severity",
+      "abs_correlation": 0.5773692411162085,
+      "llm1_label": null
+    },
+    "44": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.810637824487151,
+      "llm1_label": null
+    },
+    "46": {
+      "concept": "hemodynamic_instability",
+      "abs_correlation": 0.04423894210787424,
+      "llm1_label": null
+    },
+    "47": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7316876878843724,
+      "llm1_label": null
+    },
+    "49": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.5347132615957428,
+      "llm1_label": "\"High salient indicators\""
+    },
+    "50": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.6682461642565037,
+      "llm1_label": null
+    },
+    "51": {
+      "concept": "inflammation_severity",
+      "abs_correlation": 0.6359568972357382,
+      "llm1_label": null
+    },
+    "52": {
+      "concept": "metabolic_stress",
+      "abs_correlation": 0.15058564314069206,
+      "llm1_label": null
+    },
+    "53": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.027146388814079554,
+      "llm1_label": null
+    },
+    "54": {
+      "concept": "metabolic_stress",
+      "abs_correlation": 0.4147265137580938,
+      "llm1_label": null
+    },
+    "55": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7894559886649601,
+      "llm1_label": "\"PaO2 & HR negative\""
+    },
+    "56": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.76470652247177,
+      "llm1_label": "\"High Absolute Values\""
+    },
+    "57": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.6188697707299545,
+      "llm1_label": "\"Negative: Low Deltas\""
+    },
+    "58": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7801656455712016,
+      "llm1_label": "\"PaO2 & CO2 Delta > 2.0\""
+    },
+    "59": {
+      "concept": "inflammation_severity",
+      "abs_correlation": 0.37211121812094317,
+      "llm1_label": null
+    },
+    "60": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7110038279646137,
+      "llm1_label": null
+    },
+    "61": {
+      "concept": "inflammation_severity",
+      "abs_correlation": 0.2226430097350317,
+      "llm1_label": null
+    },
+    "62": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.8307178261406114,
+      "llm1_label": null
+    },
+    "63": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.737727568938548,
+      "llm1_label": null
+    },
+    "64": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.6382666741734002,
+      "llm1_label": null
+    },
+    "65": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.2747207197038943,
+      "llm1_label": null
+    },
+    "66": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.8250529387784943,
+      "llm1_label": "PaO2 & CO2 Delta > 2.0"
+    },
+    "67": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7901983493974867,
+      "llm1_label": "SpO2_FiO2_ratio_HIGH"
+    },
+    "71": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7820460632069083,
+      "llm1_label": null
+    },
+    "72": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7874650962323018,
+      "llm1_label": "PaO2 > 0 or SpO2 > 0"
+    },
+    "73": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7534729649358897,
+      "llm1_label": null
+    },
+    "74": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.1441075021937878,
+      "llm1_label": null
+    },
+    "75": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.5224478947698246,
+      "llm1_label": null
+    },
+    "76": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.6943741761751041,
+      "llm1_label": "High SpO2_FiO2_ratio"
+    },
+    "77": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7415065539700397,
+      "llm1_label": "Positive: High Deltas"
+    },
+    "78": {
+      "concept": "inflammation_severity",
+      "abs_correlation": 0.13484947599952224,
+      "llm1_label": null
+    },
+    "79": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.28764621558942516,
+      "llm1_label": "\"PaO2 & SpO2 negative\""
+    },
+    "80": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.20085917467804065,
+      "llm1_label": null
+    },
+    "81": {
+      "concept": "inflammation_severity",
+      "abs_correlation": 0.3972040786557318,
+      "llm1_label": null
+    },
+    "82": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.6143153145837065,
+      "llm1_label": null
+    },
+    "83": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.6067482739017781,
+      "llm1_label": "\"HR & PaO2 < 0\""
+    },
+    "84": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.40693298537433875,
+      "llm1_label": "shock_index & PaCO2 > 0"
+    },
+    "85": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.4839793038244117,
+      "llm1_label": null
+    },
+    "86": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.3745209281276323,
+      "llm1_label": null
+    },
+    "87": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.4807734641842604,
+      "llm1_label": null
+    },
+    "88": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.8000930303349179,
+      "llm1_label": "`PaCO2 & pH_HIGH`"
+    },
+    "89": {
+      "concept": "inflammation_severity",
+      "abs_correlation": 0.5747829161059086,
+      "llm1_label": "High salient indicators"
+    },
+    "90": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.8151189898649468,
+      "llm1_label": null
+    },
+    "91": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7995682878346166,
+      "llm1_label": null
+    },
+    "92": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.776520520092083,
+      "llm1_label": null
+    },
+    "93": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.1483109388776998,
+      "llm1_label": null
+    },
+    "94": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.816143490283979,
+      "llm1_label": "\"PaO2 & HR negative\""
+    },
+    "95": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7831794409987023,
+      "llm1_label": null
+    },
+    "98": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.3840299046508698,
+      "llm1_label": "\"PaO2 & MAP > 0\""
+    },
+    "99": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.18949835301832202,
+      "llm1_label": null
+    },
+    "101": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7914136044886111,
+      "llm1_label": null
+    },
+    "102": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7961042079020234,
+      "llm1_label": "\"shock_index & PaCO2 > 0\""
+    },
+    "103": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7930598084968223,
+      "llm1_label": null
+    },
+    "104": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.8069849009356502,
+      "llm1_label": "MAP & PaO2 > 0"
+    },
+    "105": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7355145692520921,
+      "llm1_label": null
+    },
+    "107": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.1576324751040362,
+      "llm1_label": null
+    },
+    "109": {
+      "concept": "recovery_trend",
+      "abs_correlation": 0.018807672621929693,
+      "llm1_label": null
+    },
+    "111": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7723525519811635,
+      "llm1_label": "MIXED"
+    },
+    "113": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7861029703877321,
+      "llm1_label": null
+    },
+    "114": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.502584499013297,
+      "llm1_label": null
+    },
+    "115": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.6717009192712547,
+      "llm1_label": null
+    },
+    "117": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7705366259838464,
+      "llm1_label": "\"HR & PaO2 Delta < -2.0\""
+    },
+    "119": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7375849338053851,
+      "llm1_label": "\"Low physiological deltas\""
+    },
+    "120": {
+      "concept": "ventilatory_failure",
+      "abs_correlation": 0.6341630239980492,
+      "llm1_label": null
+    },
+    "121": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.8418260311526539,
+      "llm1_label": "\"HR & PaO2 negative\""
+    },
+    "122": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7548112491841349,
+      "llm1_label": null
+    },
+    "123": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.8040353985179444,
+      "llm1_label": "High salient indicators"
+    },
+    "124": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.6525960393322118,
+      "llm1_label": "Positive metabolic shift"
+    },
+    "126": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.7673376565626143,
+      "llm1_label": "High Positive Deltas"
+    },
+    "127": {
+      "concept": "oxygenation_failure",
+      "abs_correlation": 0.4908468242594466,
+      "llm1_label": null
+    }
+  },
+  "concept_best_feature": {
+    "oxygenation_failure": {
+      "feature_idx": 121,
+      "abs_correlation": 0.8418260311526539,
+      "llm1_label": "\"HR & PaO2 negative\""
+    },
+    "ventilatory_failure": {
+      "feature_idx": 17,
+      "abs_correlation": 0.7860601903605916,
+      "llm1_label": "shock_index_high_and_PaCO2_high"
+    },
+    "metabolic_stress": {
+      "feature_idx": 62,
+      "abs_correlation": 0.8007730994202312,
+      "llm1_label": null
+    },
+    "hemodynamic_instability": {
+      "feature_idx": 62,
+      "abs_correlation": 0.7794509302255812,
+      "llm1_label": null
+    },
+    "inflammation_severity": {
+      "feature_idx": 44,
+      "abs_correlation": 0.7009268160035638,
+      "llm1_label": null
+    },
+    "recovery_trend": {
+      "feature_idx": 62,
+      "abs_correlation": 0.7965373193121369,
+      "llm1_label": null
+    }
+  }
+}
