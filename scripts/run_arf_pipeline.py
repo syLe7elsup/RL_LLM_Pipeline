@@ -40,6 +40,9 @@ from bb_pipeline.llm import StubClient, QwenLocalClient
 from bb_pipeline.llm1_concept import propose_concept
 from bb_pipeline.verifier import EmbeddingVerifier, label_with_refinement
 from bb_pipeline.pipeline import explain_with_selection
+from bb_pipeline.per_input_attribution import (
+    compute_attribution, attribution_to_polarity_proxy,
+)
 
 
 def print_flush(*a, **kw):
@@ -60,6 +63,9 @@ def main():
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--use_snapshot", action="store_true",
                    help="skip LLM1 + polarity, load from snapshot instead")
+    p.add_argument("--use_attribution", action="store_true",
+                   help="replace marginal polarity with per-input gradient*activation "
+                        "attribution as the polarity hint passed to LLM2 + K-candidate")
     args = p.parse_args()
 
     rng = np.random.default_rng(args.seed)
@@ -201,16 +207,26 @@ def main():
         print_flush(f"    blackbox P(other,IMV)=({p_m[0]:.3f},{p_m[1]:.3f})  "
                     f"argmax={'IMV' if bb_argmax==1 else 'other'}")
         print_flush(f"    active feats: {len(active)}")
-        # Polarity composition
-        low_ct = sum(1 for f in active if f in polarities and polarities[f].direction == "LOW")
-        high_ct = sum(1 for f in active if f in polarities and polarities[f].direction == "HIGH")
-        print_flush(f"    polarity split: {low_ct} LOW, {high_ct} HIGH")
+
+        # Pick the polarity source: per-input attribution OR marginal correlation.
+        if args.use_attribution:
+            attr = compute_attribution(
+                state["model"].qnet, state["sae"].sae, z, imv_action=2,
+            )
+            pol_for_input = attribution_to_polarity_proxy(attr, active)
+        else:
+            pol_for_input = polarities
+
+        low_ct = sum(1 for f in active if f in pol_for_input and pol_for_input[f].direction == "LOW")
+        high_ct = sum(1 for f in active if f in pol_for_input and pol_for_input[f].direction == "HIGH")
+        src = "attribution" if args.use_attribution else "marginal"
+        print_flush(f"    {src} polarity split: {low_ct} LOW, {high_ct} HIGH")
 
         res = explain_with_selection(
             client, input_idx=int(vidx),
             p_blackbox=p_m,
             active_features=active, activation_values=activ_vals,
-            concept_labels=concept_labels, polarities=polarities,
+            concept_labels=concept_labels, polarities=pol_for_input,
             K=args.K,
         )
         winner = res.winner
@@ -244,7 +260,8 @@ def main():
         print_flush(f"  argmax agreement: {agreed}/{len(results)} = {agreed/len(results):.3f}")
         print_flush(f"  KL mean={np.mean(kls):.3f}  median={np.median(kls):.3f}  max={np.max(kls):.3f}")
         print_flush(f"  winning strategies: {dict(strat)}")
-        out_path = snapshot_dir / f"explanations_n{args.n_explain}.json"
+        suffix = "_attribution" if args.use_attribution else ""
+        out_path = snapshot_dir / f"explanations_n{args.n_explain}{suffix}.json"
         out_path.write_text(json.dumps({"summary": {
             "N": len(results),
             "argmax_agree_rate": agreed / len(results),

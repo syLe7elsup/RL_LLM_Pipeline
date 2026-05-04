@@ -1,0 +1,187 @@
+{
+  "summary": {
+    "N": 10,
+    "argmax_agree_rate": 0.8,
+    "kl_mean": 0.19602213757290127,
+    "kl_median": 0.11486155097847969,
+    "kl_max": 0.6810762612318979,
+    "winning_strategies": {
+      "balanced": 3,
+      "free": 2,
+      "high_only": 2,
+      "low_only": 3
+    }
+  },
+  "per_input": [
+    {
+      "vidx": 50,
+      "p_blackbox": [
+        0.10039770603179932,
+        0.8996022939682007
+      ],
+      "p_judge": [
+        0.25,
+        0.75
+      ],
+      "kl": 0.07202427612713656,
+      "argmax_agree": true,
+      "winning_strategy": "balanced",
+      "n_active": 23,
+      "low_active": 2,
+      "high_active": 19
+    },
+    {
+      "vidx": 452,
+      "p_blackbox": [
+        0.4234526753425598,
+        0.5765473246574402
+      ],
+      "p_judge": [
+        0.65,
+        0.35
+      ],
+      "kl": 0.10630632927157432,
+      "argmax_agree": false,
+      "winning_strategy": "free",
+      "n_active": 19,
+      "low_active": 8,
+      "high_active": 7
+    },
+    {
+      "vidx": 52,
+      "p_blackbox": [
+        0.08121079206466675,
+        0.9187892079353333
+      ],
+      "p_judge": [
+        0.45,
+        0.55
+      ],
+      "kl": 0.3324169773800618,
+      "argmax_agree": true,
+      "winning_strategy": "balanced",
+      "n_active": 23,
+      "low_active": 2,
+      "high_active": 19
+    },
+    {
+      "vidx": 383,
+      "p_blackbox": [
+        0.6041282415390015,
+        0.39587172865867615
+      ],
+      "p_judge": [
+        0.65,
+        0.35
+      ],
+      "kl": 0.004540789403588236,
+      "argmax_agree": true,
+      "winning_strategy": "high_only",
+      "n_active": 20,
+      "low_active": 8,
+      "high_active": 5
+    },
+    {
+      "vidx": 257,
+      "p_blackbox": [
+        0.8728898763656616,
+        0.12711013853549957
+      ],
+      "p_judge": [
+        0.65,
+        0.35
+      ],
+      "kl": 0.12861302784012546,
+      "argmax_agree": true,
+      "winning_strategy": "free",
+      "n_active": 22,
+      "low_active": 9,
+      "high_active": 6
+    },
+    {
+      "vidx": 254,
+      "p_blackbox": [
+        0.8630877733230591,
+        0.13691221177577972
+      ],
+      "p_judge": [
+        0.7,
+        0.3
+      ],
+      "kl": 0.07336194916992952,
+      "argmax_agree": true,
+      "winning_strategy": "low_only",
+      "n_active": 25,
+      "low_active": 5,
+      "high_active": 14
+    },
+    {
+      "vidx": 412,
+      "p_blackbox": [
+        0.9761553406715393,
+        0.023844681680202484
+      ],
+      "p_judge": [
+        0.45,
+        0.55
+      ],
+      "kl": 0.6810762612318979,
+      "argmax_agree": false,
+      "winning_strategy": "low_only",
+      "n_active": 22,
+      "low_active": 8,
+      "high_active": 13
+    },
+    {
+      "vidx": 55,
+      "p_blackbox": [
+        0.03322833776473999,
+        0.96677166223526
+      ],
+      "p_judge": [
+        0.2,
+        0.8
+      ],
+      "kl": 0.12341677268538506,
+      "argmax_agree": true,
+      "winning_strategy": "balanced",
+      "n_active": 23,
+      "low_active": 2,
+      "high_active": 19
+    },
+    {
+      "vidx": 119,
+      "p_blackbox": [
+        0.9499908089637756,
+        0.05000918731093407
+      ],
+      "p_judge": [
+        0.6,
+        0.4
+      ],
+      "kl": 0.3325602899666212,
+      "argmax_agree": true,
+      "winning_strategy": "low_only",
+      "n_active": 22,
+      "low_active": 8,
+      "high_active": 13
+    },
+    {
+      "vidx": 505,
+      "p_blackbox": [
+        0.10797238349914551,
+        0.8920276165008545
+      ],
+      "p_judge": [
+        0.3,
+        0.7
+      ],
+      "kl": 0.10590470265269275,
+      "argmax_agree": true,
+      "winning_strategy": "high_only",
+      "n_active": 17,
+      "low_active": 8,
+      "high_active": 7
+    }
+  ]
+}
