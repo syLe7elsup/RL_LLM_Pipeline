@@ -98,6 +98,7 @@ Then point `arf_adapter.DEFAULT_ARTIFACT_DIR` at `LLM_RL/data/outputs`.
 | `evidence.py`              | per-feature `(E^+, E^-)` collection + textual rendering              |
 | `feature_polarity.py`      | marginal polarity (HIGH / LOW / NEUTRAL) per SAE feature             |
 | `per_input_attribution.py` | gradient × activation; replaces marginal polarity per-input          |
+| `concept_grounding.py`     | (ARF) compare SAE features to the 6 simulator-generated latent concepts |
 | `llm.py`                   | pluggable LLM client (`QwenLocalClient` / `StubClient` / DashScope)  |
 | `llm1_concept.py`          | concept naming + refinement prompts (gold-buffer-aware)              |
 | `verifier.py`              | `LLMVerifier` + `EmbeddingVerifier` (per-concept threshold)          |
@@ -118,6 +119,7 @@ Then point `arf_adapter.DEFAULT_ARTIFACT_DIR` at `LLM_RL/data/outputs`.
 | `scripts/test_arf_adapter.py` | sanity-check ARF artifact loading + evidence + polarity (no LLM) |
 | `scripts/run_arf_pipeline.py` | ARF end-to-end (LLM1 + verifier + LLM2 + Judge); supports `--use_attribution` and `--use_snapshot` |
 | `scripts/test_polarity_diversification.py` | snapshot-based test of K-candidate polarity diversification |
+| `scripts/run_arf_grounding.py` | compute |Pearson r| matrix between alive SAE features and the 6 ground-truth concepts |
 
 ## Key design choices
 
@@ -185,6 +187,18 @@ python3 -u scripts/run_arf_pipeline.py --client qwen --use_snapshot \
 `--use_snapshot` skips the LLM1 phase. `--use_attribution` swaps marginal
 polarity for per-input attribution (recommended on ARF).
 
+After a run, validate the SAE features against the simulator's ground-truth
+latents:
+
+```bash
+python3 scripts/run_arf_grounding.py --split both
+```
+
+Mean best |Pearson r| = 0.569; 69 / 103 alive features have |r| ≥ 0.50 to
+some ground-truth concept. The features LLM1 named (without ever seeing
+the ground-truth labels) consistently align with clinically appropriate
+syndromes — see `RESULTS_arf.md`.
+
 ## Status
 
 | capability                                              | POLAR | ARF |
@@ -197,7 +211,7 @@ polarity for per-input attribution (recommended on ARF).
 | Snapshot save/load                                      | ✅    | ✅    |
 | Notebook (Colab-portable)                               | ✅    | —     |
 | Standalone runner script                                | —     | ✅    |
-| Stage-10 ground-truth concept grounding                 | n/a   | ⏳    |
+| Stage-10 ground-truth concept grounding                 | n/a   | ✅    |
 | 3-class generalization (preserve HFNC)                  | n/a   | ⏳    |
 
 ## Open work
